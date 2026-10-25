@@ -241,23 +241,557 @@ a.qa,a.qa:hover{text-decoration:none;color:var(--fg)}
 .avatar{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;flex:none;border:2px solid var(--ink);color:var(--ink)}
 .avatar.big{width:56px;height:56px;font-size:1.9rem;border-radius:16px}
 .avatar.s0{background:linear-gradient(135deg,#C6FF2E,#19D3FF)}
+.avatar.s1{background:linear-gradient(135deg,#19D3FF,#7FD99A)}
+.avatar.s2{background:linear-gradient(135deg,#F28CB1,#C2487F)}
+.avatar.s3{background:linear-gradient(135deg,#8CB8FF,#19D3FF)}
+.mkt-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.mkt-row .tx{flex:1;min-width:0}
+.mkt-row .tx b{display:block}
+.mkt-row .tx span{font-size:.74rem;color:var(--muted)}
+.mkt-row .pr{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.mkt-row .pr span{display:block;font-size:.72rem;font-weight:700}
 </style>
 </head>
 <body>
-<!-- NOTE: The original HTML body was truncated in transit and has not been received yet.
-     This file currently contains the complete head + design system CSS from the original.
-     The app screens (home, spin wheel, quests, memes, rank, bank, trust, market) will be
-     added here once the full file is supplied. -->
 <div class="app">
-  <div class="scroller">
-    <div class="screen">
+
+  <!-- top bar -->
+  <header class="appbar">
+    <div class="logo">V</div>
+    <div class="ttl"><b>Voltrush</b><span>Meme energy on Solana</span></div>
+    <span class="chip" id="netChip">● Devnet</span>
+    <button class="icon-btn" id="themeBtn" title="Switch theme" aria-label="Switch theme">
+      <svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+    </button>
+  </header>
+
+  <!-- scrolling screens -->
+  <main class="scroller" id="scroller">
+
+    <!-- HOME -->
+    <section class="screen" id="scr-home">
       <div class="hero">
-        <p class="eyebrow">Voltrush</p>
-        <p class="val">Coming soon</p>
-        <p class="sub">Full app UI loading — send the complete HTML to finish deployment.</p>
+        <p class="eyebrow">Season 1 · Live now</p>
+        <p class="val" id="heroBal">0 VOLT</p>
+        <p class="sub">Free daily spin, quests and memes. No wallet needed to start.</p>
+        <button class="btn ink block" id="heroSpin">⚡ Spin now</button>
       </div>
-    </div>
-  </div>
+
+      <div class="quick">
+        <a class="qa" href="#" data-go="spin"><span class="bub">🎰</span>Spin</a>
+        <a class="qa" href="#" data-go="bank"><span class="bub">🏦</span>Bank</a>
+        <a class="qa" href="#" data-go="trust"><span class="bub">🛡️</span>Trust</a>
+        <a class="qa" href="#" data-go="market"><span class="bub">🛒</span>Market</a>
+      </div>
+
+      <div class="seg" role="tablist" aria-label="Home sections">
+        <button role="tab" aria-selected="true" data-pane="p-chart">Chart</button>
+        <button role="tab" aria-selected="false" data-pane="p-earn">How to earn</button>
+      </div>
+
+      <div class="pane" id="p-chart">
+        <div class="card">
+          <div class="sec-t"><div><h3>$VOLT</h3><p class="fine">Voltrush · SPL token</p></div><span class="chip" id="priceChip">$0.0042</span></div>
+          <p class="price-big" id="priceBig">$0.00421</p>
+          <p class="up">▲ +12.4% (24h)</p>
+          <div class="ranges" style="margin-top:10px">
+            <button class="rg" aria-pressed="true" data-rng="24H">24H</button>
+            <button class="rg" aria-pressed="false" data-rng="7D">7D</button>
+            <button class="rg" aria-pressed="false" data-rng="30D">30D</button>
+          </div>
+          <svg class="chart" viewBox="0 0 320 120" aria-hidden="true">
+            <line class="grid" x1="0" y1="30" x2="320" y2="30"/><line class="grid" x1="0" y1="60" x2="320" y2="60"/><line class="grid" x1="0" y1="90" x2="320" y2="90"/>
+            <polygon class="ar" points="0,95 40,80 80,86 120,62 160,66 200,44 240,50 280,28 320,20 320,120 0,120"/>
+            <polyline class="ln" points="0,95 40,80 80,86 120,62 160,66 200,44 240,50 280,28 320,20"/>
+            <circle class="dt" cx="320" cy="20" r="4"/>
+            <text x="4" y="26">high</text><text x="4" y="116">low</text>
+          </svg>
+          <p class="fine">Chart is illustrative demo data.</p>
+          <div class="chartbox" id="chartbox"></div>
+          <div class="stats3">
+            <div class="tile"><p class="k">Holders</p><p class="v">1,248</p></div>
+            <div class="tile"><p class="k">Liquidity</p><p class="v">$86.2K</p></div>
+            <div class="tile"><p class="k">MCap</p><p class="v">$4.2M</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pane" id="p-earn" hidden>
+        <div class="card">
+          <h3>How to earn</h3>
+          <ul class="road">
+            <li class="done"><p class="st">Done</p><p>Connect your wallet</p></li>
+            <li class="done"><p class="st">Done</p><p>Claim your free daily spin</p></li>
+            <li><p class="st">Daily</p><p>Finish quests for XP</p></li>
+            <li><p class="st">Season 1</p><p>Climb the leaderboard for the airdrop</p></li>
+          </ul>
+          <p class="notice" style="margin-top:8px">$VOLT is a meme coin with no promised utility or returns. Play for fun only.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPIN -->
+    <section class="screen" id="scr-spin" hidden>
+      <div class="card" style="text-align:center">
+        <h3>Daily spin</h3>
+        <p class="fine">One free spin every 24h · come back tomorrow</p>
+        <div class="wheel-box">
+          <div class="pointer"></div>
+          <canvas id="wheel" width="600" height="600" role="img" aria-label="Prize wheel"></canvas>
+        </div>
+        <p class="result" id="spinResult">Ready when you are ⚡</p>
+        <button class="btn pri block" id="spinBtn">SPIN THE WHEEL</button>
+      </div>
+      <div class="card">
+        <h3>Prize tiers</h3>
+        <div class="tiers" id="tiers"></div>
+      </div>
+      <div class="card">
+        <h3>Your spin history</h3>
+        <ul class="hist" id="hist"><li><span class="muted">No spins yet</span><span></span></li></ul>
+      </div>
+    </section>
+
+    <!-- QUESTS -->
+    <section class="screen" id="scr-quests" hidden>
+      <div class="card">
+        <div class="sec-t"><div><h3>Season pass</h3><p class="fine">Level <b id="lvl">1</b> · <span id="xpNow">0</span>/<span id="xpMax">100</span> XP</p></div><span class="chip">⚡ Season 1</span></div>
+        <div class="bar"><i id="xpBar"></i></div>
+        <p class="fine" style="margin-top:10px">Daily streak — spin every day for bonus XP</p>
+        <div class="streak" id="streak"></div>
+      </div>
+      <div class="card">
+        <h3>Today's quests</h3>
+        <div id="questList"></div>
+      </div>
+    </section>
+
+    --&gt; <!-- MEMES -->
+    <section class="screen" id="scr-memes" hidden>
+      <div class="card">
+        <h3>Meme maker</h3>
+        <p class="fine" style="margin-bottom:10px">Pick a style, type your lines, generate.</p>
+        <div class="styles">
+          <button class="sw m1" data-style="0" aria-pressed="true" aria-label="Volt style"></button>
+          <button class="sw m2" data-style="1" aria-pressed="false" aria-label="Deep style"></button>
+          <button class="sw m3" data-style="2" aria-pressed="false" aria-label="Green style"></button>
+          <button class="sw m4" data-style="3" aria-pressed="false" aria-label="Stripe style"></button>
+        </div>
+        <div class="field"><label>Top line</label><div class="inp"><input id="memeTop" maxlength="40" placeholder="WHEN VOLTRUSH PUMPS"></div></div>
+        <div class="field"><label>Bottom line</label><div class="inp"><input id="memeBot" maxlength="40" placeholder="NOBODY SELLS"></div></div>
+        <canvas id="memeCv" width="600" height="600"></canvas>
+        <div class="two" style="margin-top:12px">
+          <button class="btn pri" id="memeGen">Generate</button>
+          <button class="btn" id="memeDl">Download</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Community gallery</h3>
+        <div class="gal">
+          <div class="gi"><div class="meme m1"><span class="t">WAGMI</span><span class="coin">V</span></div><button class="like" aria-pressed="false">♥ 24</button></div>
+          <div class="gi"><div class="meme m2"><span class="t">HODL THE VOLT</span><span class="coin">V</span></div><button class="like" aria-pressed="false">♥ 57</button></div>
+          <div class="gi"><div class="meme m3"><span class="t">GREEN CANDLES ONLY</span><span class="coin">V</span></div><button class="like" aria-pressed="false">♥ 31</button></div>
+          <div class="gi"><div class="meme m4"><span class="t">LFG ⚡</span><span class="coin">V</span></div><button class="like" aria-pressed="false">♥ 42</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RANK -->
+    <section class="screen" id="scr-rank" hidden>
+      <div class="card">
+        <h3>Season 1 leaderboard</h3>
+        <p class="fine" style="margin-bottom:8px">Top 500 spinners share the 10M $VOLT airdrop pool.</p>
+        <div class="podium">
+          <div class="pod"><p class="rk">2</p><p class="w">volt…Gq7x</p><p class="s">8,420</p></div>
+          <div class="pod first"><p class="rk">1</p><p class="w">rush…Aa2m</p><p class="s">11,930</p></div>
+          <div class="pod"><p class="rk">3</p><p class="w">meme…Kx9p</p><p class="s">7,655</p></div>
+        </div>
+        <div id="lb"></div>
+      </div>
+      <div class="card">
+        <h3>Invite friends</h3>
+        <p class="fine" style="margin-bottom:8px">Both of you get 250 VOLT when they join.</p>
+        <div class="code"><span class="mono" id="inviteCode">VOLT-—</span><button class="btn sm" id="copyBtn">Copy</button></div>
+      </div>
+    </section>
+
+    <!-- BANK -->
+    <section class="screen" id="scr-bank" hidden>
+      <div class="card">
+        <h3>Volt bank</h3>
+        <p class="fine">Demo balances — nothing on-chain yet.</p>
+        <div class="bal">
+          <div class="tile"><p class="k">Balance</p><p class="v" id="balBal">0</p></div>
+          <div class="tile"><p class="k">Staked</p><p class="v">0</p></div>
+          <div class="tile"><p class="k">XP</p><p class="v" id="balXp">0</p></div>
+        </div>
+        <div class="sec-t"><h4 style="font-size:.9rem">Recent activity</h4></div>
+        <div id="txList"></div>
+      </div>
+      <div class="card">
+        <h3>Settings</h3>
+        <div class="sw-row"><div>Sound effects</div><button class="switch" id="swSound" role="switch" aria-checked="true" aria-label="Sound effects"></button></div>
+        <div class="sw-row"><div>Compact mode</div><button class="switch" id="swCompact" role="switch" aria-checked="false" aria-label="Compact mode"></button></div>
+        <div class="sw-row"><div>Hide balance</div><button class="switch" id="swHide" role="switch" aria-checked="false" aria-label="Hide balance"></button></div>
+      </div>
+      <div class="card">
+        <h3>Lucky flip</h3>
+        <p class="fine" style="margin-bottom:8px">Flip the volt coin — 50/50, double or nothing, 5 VOLT entry.</p>
+        <button class="btn ink flip" id="flipBtn">🪙 Flip</button>
+        <div class="meter"><i id="flipMeter" style="width:50%"></i></div>
+        <p class="fine" id="flipStats">Wins 0 · Losses 0</p>
+      </div>
+      <div class="card">
+        <h3>Partners</h3>
+        <div class="partner">
+          <span class="tag">DEX</span>
+          <b>Swap on Jupiter</b>
+          <p class="fine">Best route aggregation on Solana. Live swaps once $VOLT launches.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="screen" id="scr-trust" hidden>
+      <div class="card">
+        <h3>Trust score</h3>
+        <div class="score" style="margin-top:10px">
+          <div class="ring"><b>82</b></div>
+          <div><p class="pill-good">● Good standing</p><p class="fine" style="margin-top:6px">On-chain checks refreshed hourly. Always verify the official contract address before trading.</p></div>
+        </div>
+        <div style="margin-top:8px">
+          <div class="chk"><span class="mark">✓</span><div><b>LP burned</b><p class="fine">Liquidity locked forever</p></div></div>
+          <div class="chk"><span class="mark">✓</span><div><b>Mint revoked</b><p class="fine">Supply fixed at 1B</p></div></div>
+          <div class="chk"><span class="mark">✓</span><div><b>Freeze revoked</b><p class="fine">Accounts cannot be frozen</p></div></div>
+          <div class="chk"><span class="mark w">!</span><div><b>Contract verified</b><p class="fine">Pending third-party audit</p></div></div>
+          <div class="chk"><span class="mark">✓</span><div><b>Top holders</b><p class="fine">Largest wallet holds 4.1%</p></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Holder breakdown</h3>
+        <div class="score" style="align-items:flex-start;margin-top:8px">
+          <div class="donut" role="img" aria-label="Holder breakdown donut chart"></div>
+          <ul class="legend">
+            <li><i style="background:var(--c1)"></i>Community <b>60%</b></li>
+            <li><i style="background:var(--c2)"></i>Liquidity <b>20%</b></li>
+            <li><i style="background:var(--c3)"></i>Team <b>10%</b></li>
+            <li><i style="background:var(--c4)"></i>CEX reserve <b>8%</b></li>
+            <li><i style="background:var(--c5)"></i>Airdrop <b>2%</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Top holder concentration</h3>
+        <div class="hb"><span>volt…Gq7x</span><div class="tr"><i style="width:88%"></i></div><b>4.1%</b></div>
+        <div class="hb"><span>rush…Aa2m</span><div class="tr"><i style="width:75%"></i></div><b>3.5%</b></div>
+        <div class="hb"><span>meme…Kx9p</span><div class="tr"><i style="width:62%"></i></div><b>2.9%</b></div>
+        <div class="hb"><span>jup…Am3f</span><div class="tr"><i style="width:51%"></i></div><b>2.4%</b></div>
+      </div>
+      <div class="card">
+        <h3>Roadmap</h3>
+        <ul class="road">
+          <li class="done"><p class="st">Shipped</p><p>Token launch + daily spin</p></li>
+          <li class="done"><p class="st">Shipped</p><p>Quests and leaderboard</p></li>
+          <li><p class="st">Next</p><p>Meme contest week</p></li>
+          <li><p class="st">Q4</p><p>CEX listings</p></li>
+          <li><p class="st">Later</p><p>Volt NFT drop for top 500</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MARKET -->
+    <section class="screen" id="scr-market" hidden>
+      <div class="card">
+        <div class="sec-t"><div><h3>Trending on Solana</h3><p class="fine">Demo data · not financial advice</p></div></div>
+        <div class="mkt-row"><div class="avatar s0">◎</div><div class="tx"><b>SOL</b><span>Solana</span></div><div class="pr">$214.20<span class="up">+2.1%</span></div></div>
+        <div class="mkt-row"><div class="avatar s1">🐕</div><div class="tx"><b>BONK</b><span>bonk</span></div><div class="pr">$0.000027<span class="up">+8.4%</span></div></div>
+        <div class="mkt-row"><div class="avatar s2">🐸</div><div class="tx"><b>WIF</b><span>dogwifhat</span></div><div class="pr">$2.94<span class="down">-3.2%</span></div></div>
+        <div class="mkt-row"><div class="avatar s3">⚡</div><div class="tx"><b>VOLT</b><span>Voltrush</span></div><div class="pr">$0.0042<span class="up">+12.4%</span></div></div>
+      </div>
+      <div class="card">
+        <h3>Swap</h3>
+        <p class="fine" style="margin-bottom:10px">Powered by Jupiter — goes live with the $VOLT launch.</p>
+        <div class="jup" id="jup">
+          <iframe src="https://jup.ag/swap/SOL-USDC?compact=true" title="Jupiter swap widget" loading="lazy"></iframe>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Buy $VOLT</h3>
+        <p class="hint" style="margin-bottom:12px">$VOLT has not launched yet. Trading opens with Season 1 TGE — watch the announcement channels.</p>
+        <label class="ack"><input type="checkbox" id="ackBox"> <span>I understand $VOLT is a meme coin, has no promised utility or returns, and I could lose everything I spend.</span></label>
+        <button class="btn pri block" id="buyBtn" disabled style="margin-top:12px">Notify me at launch</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- bottom dock -->
+  <nav class="dock" aria-label="Main navigation">
+    <button data-go="home" aria-current="page"><svg class="i" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/></svg>Home</button>
+    <button data-go="spin"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 4"/></svg>Spin</button>
+    <button data-go="quests"><svg class="i" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Quests</button>
+    <button data-go="memes"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 10h4M7 14h7"/><circle cx="16.5" cy="9.5" r="1"/></svg>Memes</button>
+    <button data-go="rank"><svg class="i" viewBox="0 0 24 24"><path d="M6 21V11M12 21V3M18 21v-7"/></svg>Rank</button>
+  </nav>
+
+  <div class="toast" id="toast" role="status"></div>
 </div>
+
+<!-- welcome dialog -->
+<dialog id="welcome">
+  <h3>⚡ Welcome to Voltrush</h3>
+  <p class="fine" style="margin-bottom:12px">Free daily spin, quests, memes and a season leaderboard. $VOLT is a meme coin — play for fun, never invest more than you can lose.</p>
+  <label class="ack" style="margin-bottom:12px"><input type="checkbox" id="wAck"> <span>I'm of age and accept the meme-coin rules.</span></label>
+  <button class="btn pri" id="wGo" disabled>Let's go ⚡</button>
+  <button class="btn" onclick="document.getElementById('welcome').close()">Maybe later</button>
+</dialog>
+
+<script>
+"use strict";
+/* ---------- state ---------- */
+const DEF = {bal:250, xp:0, lastSpin:null, hist:[], quests:{}, streak:0, likes:{}, flips:{w:0,l:0}, seen:false, theme:null};
+let S;
+try { S = Object.assign({}, DEF, JSON.parse(localStorage.getItem("volt")||"{}")); } catch(e){ S = {...DEF}; }
+const save = () => { try { localStorage.setItem("volt", JSON.stringify(S)); } catch(e){} };
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const fmt = n => n.toLocaleString("en-US");
+
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),2200); }
+
+/* ---------- navigation ---------- */
+function go(name){
+  $$(".screen").forEach(s=>s.hidden = s.id !== "scr-"+name);
+  $$("[data-go]").forEach(b=>{ if(b.closest(".dock")) b.setAttribute("aria-current", b.dataset.go===name ? "page":"false"); });
+  $("#scroller").scrollTop = 0;
+}
+$$("[data-go]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); go(b.dataset.go); }));
+
+/* ---------- theme ---------- */
+$("#themeBtn").addEventListener("click", () => {
+  const light = document.documentElement.getAttribute("data-theme")==="light";
+  document.documentElement.setAttribute("data-theme", light ? "dark":"light");
+  S.theme = light ? "dark":"light"; save();
+  toast(light ? "Dark mode ⚡" : "Light mode ☀️");
+});
+if(S.theme) document.documentElement.setAttribute("data-theme", S.theme);
+
+/* ---------- home ---------- */
+function renderBal(){ $("#heroBal").textContent = fmt(S.bal)+" VOLT"; $("#balBal").textContent = fmt(S.bal); $("#balXp").textContent = fmt(S.xp); }
+renderBal();
+$("#heroSpin").addEventListener("click", ()=>go("spin"));
+
+$$(".seg [data-pane]").forEach(b => b.addEventListener("click", () => {
+  $$(".seg [data-pane]").forEach(x=>x.setAttribute("aria-selected", x===b));
+  $$(".pane").forEach(p=>p.hidden = p.id!==b.dataset.pane);
+}));
+
+$$(".rg").forEach(b => b.addEventListener("click", () => {
+  $$(".rg").forEach(x=>x.setAttribute("aria-pressed", x===b));
+  toast(b.dataset.rng+" chart — demo data");
+}));
+
+/* ---------- wheel ---------- */
+const PRIZES = [10,50,250,100,1000,25,500,5000];
+const COLS = ["#C6FF2E","#19D3FF","#7FD99A","#8CB8FF","#F28CB1","#19D3FF","#C6FF2E","#7FD99A"];
+const wheel = $("#wheel"), wctx = wheel.getContext("2d");
+let angle = 0, spinning = false;
+
+function drawWheel(){
+  const n = PRIZES.length, r = 300, cx=300, cy=300;
+  wctx.clearRect(0,0,600,600);
+  for(let i=0;i<n;i++){
+    const a0 = angle + i*2*Math.PI/n - Math.PI/2, a1 = a0 + 2*Math.PI/n;
+    wctx.beginPath(); wctx.moveTo(cx,cy); wctx.arc(cx,cy,r,a0,a1); wctx.closePath();
+    wctx.fillStyle = COLS[i]; wctx.fill();
+    wctx.strokeStyle = "#0A1020"; wctx.lineWidth = 8; wctx.stroke();
+    wctx.save(); wctx.translate(cx,cy); wctx.rotate(a0+Math.PI/n);
+    wctx.textAlign = "right"; wctx.fillStyle = "#0A1020";
+    wctx.font = "800 34px 'Bricolage Grotesque', sans-serif";
+    wctx.fillText(fmt(PRIZES[i]), r-28, 12); wctx.restore();
+  }
+  wctx.beginPath(); wctx.arc(cx,cy,54,0,7); wctx.fillStyle="#131D33"; wctx.fill();
+  wctx.lineWidth=10; wctx.strokeStyle="#0A1020"; wctx.stroke();
+  wctx.fillStyle="#C6FF2E"; wctx.font="800 44px 'Bricolage Grotesque', sans-serif";
+  wctx.textAlign="center"; wctx.textBaseline="middle"; wctx.fillText("V",cx,cy+2);
+}
+drawWheel();
+
+function renderTiers(lastIdx){
+  $("#tiers").innerHTML = PRIZES.map((p,i)=>
+    `<div class="tier${i===lastIdx?" on":""}"><b>${fmt(p)}</b>VOLT<span class="you">${i===lastIdx?"you ✓":""}</span></div>`).join("");
+}
+renderTiers(-1);
+
+function renderHist(){
+  const h = S.hist;
+  $("#hist").innerHTML = h.length ? h.slice(0,8).map(x=>
+    `<li><span class="muted">${x.d}</span><b class="mono">+${fmt(x.p)} VOLT</b></li>`).join("")
+    : `<li><span class="muted">No spins yet</span><span></span></li>`;
+}
+renderHist();
+
+function today(){ return new Date().toISOString().slice(0,10); }
+
+$("#spinBtn").addEventListener("click", () => {
+  if(spinning) return;
+  if(S.lastSpin === today()){ toast("Already spun today — come back tomorrow ⏰"); return; }
+  spinning = true;
+  const idx = Math.floor(Math.random()*PRIZES.length);
+  const seg = 2*Math.PI/PRIZES.length;
+  const target = 2*Math.PI*6 + (Math.PI/2) - (idx+0.5)*seg; // pointer at top
+  const start = angle, t0 = performance.now(), dur = 4200;
+  (function anim(t){
+    const p = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-p,4);
+    angle = start + (target-start)*e; drawWheel();
+    if(p<1) requestAnimationFrame(anim);
+    else{
+      spinning=false; angle = target % (2*Math.PI); drawWheel();
+      const prize = PRIZES[idx];
+      S.bal += prize; S.lastSpin = today(); S.xp += 25;
+      S.hist.unshift({d:new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short"}), p:prize}); S.hist = S.hist.slice(0,20);
+      S.streak = Math.min(7, (S.streak||0)+1);
+      save(); renderBal(); renderTiers(idx); renderHist(); renderQuests();
+      $("#spinResult").innerHTML = `You won <span class="prize">+${fmt(prize)} VOLT</span>!`;
+      toast("+"+fmt(prize)+" VOLT added to your bank ⚡");
+    }
+  })(t0);
+});
+
+/* ---------- quests ---------- */
+const QUESTS = [
+  {id:"q1", t:"Spin the daily wheel", xp:25},
+  {id:"q2", t:"Generate one meme", xp:15},
+  {id:"q3", t:"Invite a friend", xp:50},
+  {id:"q4", t:"Flip the lucky coin", xp:10},
+  {id:"q5", t:"Check the trust page", xp:10}
+];
+function renderQuests(){
+  const done = {q1: S.lastSpin===today(), q3:false, ...S.quests};
+  done.q1 = S.lastSpin===today();
+  $("#questList").innerHTML = QUESTS.map(q=>{
+    const d = q.id==="q1" ? S.lastSpin===today() : !!S.quests[q.id];
+    return `<div class="quest${d?" done":""}"><div class="tx"><b>${q.t}</b></div><span class="xp">+${q.xp} XP</span><button class="btn sm${d?"":" pri"}" data-q="${q.id}" ${d?"disabled":""}>${d?"Done ✓":"Go"}</button></div>`;
+  }).join("");
+  const xpMax = 100, lvl = Math.floor(S.xp/xpMax)+1;
+  $("#lvl").textContent = lvl; $("#xpNow").textContent = S.xp%xpMax; $("#xpMax").textContent = xpMax;
+  $("#xpBar").style.width = (S.xp%xpMax)+"%";
+  $("#streak").innerHTML = Array.from({length:7},(_,i)=>`<div class="pip${i<S.streak?" on":""}">${i+1}</div>`).join("");
+}
+renderQuests();
+$("#questList").addEventListener("click", e => {
+  const b = e.target.closest("[data-q]"); if(!b) return;
+  const q = QUESTS.find(x=>x.id===b.dataset.q);
+  if(q.id==="q1"){ go("spin"); return; }
+  if(q.id==="q2"){ go("memes"); return; }
+  if(q.id==="q4"){ go("bank"); return; }
+  if(q.id==="q5"){ go("trust"); S.quests.q5=true; }
+  else toast("Copy your invite code from the Rank page 🤝");
+  if(!S.quests[q.id] && q.id==="q5"){ S.xp += q.xp; }
+  save(); renderQuests(); renderBal();
+});
+
+/* ---------- memes ---------- */
+const mBgs = [
+  g=>{const gr=g.createLinearGradient(0,0,600,600);gr.addColorStop(0,"#C6FF2E");gr.addColorStop(1,"#19D3FF");return gr;},
+  g=>{const gr=g.createLinearGradient(0,0,600,600);gr.addColorStop(0,"#1B3A6B");gr.addColorStop(1,"#0A1020");return gr;},
+  g=>{const gr=g.createLinearGradient(0,0,600,600);gr.addColorStop(0,"#7FD99A");gr.addColorStop(1,"#1F7A3F");return gr;},
+  g=>{const gr=g.createLinearGradient(0,0,600,600);gr.addColorStop(0,"#E4FF8A");gr.addColorStop(.5,"#C6FF2E");gr.addColorStop(1,"#E4FF8A");return gr;}
+];
+let mStyle = 0;
+const mc = $("#memeCv"), mx = mc.getContext("2d");
+function drawMeme(){
+  mx.fillStyle = mBgs[mStyle](mx); mx.fillRect(0,0,600,600);
+  mx.strokeStyle = "#0A1020"; mx.lineWidth = 12; mx.strokeRect(6,6,588,588);
+  const top = $("#memeTop").value || "WHEN VOLTRUSH PUMPS";
+  const bot = $("#memeBot").value || "NOBODY SELLS";
+  mx.textAlign="center"; mx.fillStyle="#fff";
+  mx.font = "800 52px 'Bricolage Grotesque', sans-serif";
+  mx.shadowColor="#000"; mx.shadowOffsetX=4; mx.shadowOffsetY=4; mx.shadowBlur=0;
+  mx.fillText(top.toUpperCase(), 300, 90, 540);
+  mx.fillText(bot.toUpperCase(), 300, 560, 540);
+  mx.shadowColor="transparent";
+  mx.beginPath(); mx.arc(300,300,70,0,7);
+  mx.fillStyle="#C6FF2E"; mx.fill(); mx.lineWidth=10; mx.strokeStyle="#0A1020"; mx.stroke();
+  mx.fillStyle="#0A1020"; mx.font="800 64px 'Bricolage Grotesque', sans-serif"; mx.fillText("V",300,322);
+}
+drawMeme();
+$$(".sw").forEach(b=>b.addEventListener("click",()=>{
+  $$(".sw").forEach(x=>x.setAttribute("aria-pressed", x===b));
+  mStyle = +b.dataset.style; drawMeme();
+}));
+$("#memeTop").addEventListener("input", drawMeme);
+$("#memeBot").addEventListener("input", drawMeme);
+$("#memeGen").addEventListener("click", ()=>{
+  drawMeme();
+  if(!S.quests.q2){ S.quests.q2=true; S.xp+=15; save(); renderQuests(); renderBal(); toast("Meme generated! +15 XP ⚡"); }
+  else toast("Fresh meme hot off the press 🎨");
+});
+$("#memeDl").addEventListener("click", ()=>{
+  const a=document.createElement("a"); a.download="voltrush-meme.png"; a.href=mc.toDataURL("image/png"); a.click();
+  toast("Meme downloaded ⬇️");
+});
+$$(".like").forEach((b,i)=>b.addEventListener("click",()=>{
+  S.likes[i]=!S.likes[i]; b.setAttribute("aria-pressed", S.likes[i]);
+  const n = [24,57,31,42][i] + (S.likes[i]?1:0);
+  b.textContent = "♥ "+n;
+  if(S.likes[i]) toast("Liked! ⚡");
+}));
+
+/* ---------- rank ---------- */
+const LB = [
+  ["rush…Aa2m",11930],["volt…Gq7x",8420],["meme…Kx9p",7655],["jup…Am3f",5310],
+  ["sol…Qw2e",4180],["deg…Zx8c",3990],["pup…Mn4v",3445],["gig…Bb7n",3010],["you",0]
+];
+function renderLB(){
+  const mine = S.bal + S.xp;
+  const rows = LB.map(r => r[0]==="you" ? ["you",mine] : r).sort((a,b)=>b[1]-a[1]);
+  $("#lb").innerHTML = rows.map((r,i)=>{
+    const me = r[0]==="you";
+    return `<div class="lb-row${me?" you":""}"><span class="n">${i+1}</span><span class="w">${me?"you":r[0]}</span><span class="s">${fmt(r[1])}</span></div>`;
+  }).join("");
+}
+renderLB();
+const myCode = "VOLT-" + Math.random().toString(36).slice(2,8).toUpperCase();
+if(!S.code){ S.code = myCode; save(); }
+$("#inviteCode").textContent = S.code;
+$("#copyBtn").addEventListener("click", async ()=>{
+  try { await navigator.clipboard.writeText(S.code); toast("Invite code copied 📋"); }
+  catch(e){ toast("Code: "+S.code); }
+});
+
+/* ---------- bank ---------- */
+function renderTx(){
+  const base = [["Daily spin","+250 VOLT"],["Season bonus","+100 VOLT"],["Meme contest entry","-0 VOLT"]];
+  $("#txList").innerHTML = S.hist.slice(0,3).map(h=>`<div class="tx-row"><span class="muted">${h.d} · spin</span><b class="mono">+${fmt(h.p)}</b></div>`)
+    .join("") || `<div class="tx-row"><span class="muted">No activity yet — go spin!</span><span></span></div>`;
+}
+renderTx();
+$$(".switch").forEach(sw=>sw.addEventListener("click",()=>{
+  const on = sw.getAttribute("aria-checked")==="true";
+  sw.setAttribute("aria-checked", on?"false":"true");
+}));
+$("#flipBtn").addEventListener("click", ()=>{
+  if(S.bal < 5){ toast("Need 5 VOLT to flip — spin first 🎰"); return; }
+  S.bal -= 5;
+  const win = Math.random()<0.5;
+  if(win){ S.bal += 10; S.flips.w++; toast("Heads! +10 VOLT 🎉"); }
+  else { S.flips.l++; toast("Tails... 5 VOLT gone 💀"); }
+  if(!S.quests.q4){ S.quests.q4=true; S.xp+=10; renderQuests(); }
+  save(); renderBal();
+  $("#flipStats").textContent = `Wins ${S.flips.w} · Losses ${S.flips.l}`;
+});
+
+/* ---------- market ---------- */
+$("#ackBox").addEventListener("change", e => { $("#buyBtn").disabled = !e.target.checked; });
+$("#buyBtn").addEventListener("click", ()=>toast("You're on the launch list ⚡"));
+$("#netChip").addEventListener("click", ()=>toast("Devnet demo — mainnet comes at TGE"));
+
+/* ---------- welcome dialog ---------- */
+const dlg = $("#welcome");
+$("#wAck").addEventListener("change", e => { $("#wGo").disabled = !e.target.checked; });
+$("#wGo").addEventListener("click", ()=>{ S.seen=true; save(); dlg.close(); toast("Welcome aboard ⚡"); });
+if(!S.seen) dlg.showModal();
+</script>
 </body>
 </html>
